@@ -1,0 +1,163 @@
+<!-- <div id="sidebar-wrapper">
+  <div class="container">
+        <h3 class="shead">Places of Mumbai</h3>
+      </div>
+  <div class="row">
+        <div class="col-md-10 col-md-offset-1" id="search-area">
+      <ul class="list-group" *ngFor="let m of markers; let i = index">
+      <li class="list-group-item litem" (click)="clickedMarker(m, i)"><a [routerLink]="['/detail/'+m.name]">{{m.name}}</a></li>
+    </ul>
+    </div>
+    </div>
+</div> -->
+
+
+<div class="nav">
+
+    <!-- click menu -->
+    <div class="click">
+      <i class="fa fa-bars menu" aria-hidden="true"></i>
+    </div>
+
+    <!-- sidebar -->
+    <div class="sidebar">
+
+      <!-- sidebar title -->
+      <div class="title">
+        <p><i class="fa fa-globe"> </i> ARS Map Marker</p>
+      </div>
+
+      <div class="responsive">
+
+        <!-- sidebar menu -->
+        <ul class="menu" data-simplebar>
+
+          <!-- languages -->
+          <li>
+            <span class="clear">
+              <span class="float left">Places</span>
+            </span>
+            <ul *ngFor="let m of markers; let i = index">
+                  <li (click)="clickedMarker(m, i)"><a [routerLink]="['/detail/'+m.name]">{{m.name}}</a></li>
+            </ul>
+          </li>
+    </ul>
+      </div>
+    </div>
+  </div>
+
+
+<div class="content-wrapper container">
+<!-- <div id="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+          <div class="col-md-12"> -->
+            <!-- <div id="main">
+              <nav class="navbar navbar-inverse">
+                        <div class="navbar-header">
+                          <a class="navbar-brand" href="#"><i class="fa fa-globe" aria-hidden="true"></i>  ARS Map Marker App</a>
+                        </div>
+              </nav>
+            </div> -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Add New Marker</h3>
+              </div>
+              <div class="panel-body">
+                <form class="form-inline" (submit)="addMarker()">
+
+                  <div class="form-group"><!--
+                    <span class="input-group-addon" id="basic-addon1">Location Name</span> -->
+                    <label for="exampleFormControlSelect1">Name</label>
+  <input type="text" class="form-control" placeholder="Location Name" aria-describedby="basic-addon1" [(ngModel)]="markerName" name="markerName">
+</div>
+
+<div class="form-group"><!--
+  <span class="input-group-addon" id="basic-addon1">Location Name</span> -->
+  <label for="exampleFormControlSelect2">Latitude</label>
+  <input type="text" class="form-control" placeholder="Location Latitude" aria-describedby="basic-addon1" [(ngModel)]="markerLat" name="markerLat">
+</div>
+
+<div class="form-group"><!--
+  <span class="input-group-addon" id="basic-addon1">Location Name</span> -->
+  <label for="exampleFormControlSelect3">Longitude</label>
+  <input type="text" class="form-control" placeholder="Location Longitude" aria-describedby="basic-addon1" [(ngModel)]="markerLng" name="markerLng">
+</div>
+
+<div class="form-group">
+  <label for="exampleFormControlSelect1">Draggable</label>
+  <select class="form-control tdrag" [(ngModel)]="markerDraggable" name="markerDraggable">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                  <button type="submit" class="btn btn-primary">Add Marker</button>
+</div>
+
+                 <!--  <label>Location Name</label>
+                 <input class="form-control tname" type="text" [(ngModel)]="markerName" name="markerName">
+
+                 <label>Location Latitude</label>
+                 <input class="form-control" type="number" [(ngModel)]="markerLat" name="markerLat">
+                 <br><br>
+                 <label>Location Longitude</label>
+                 <input class="form-control" type="number" [(ngModel)]="markerLng" name="markerLng">
+
+                 <label>Draggable</label>
+                 <select class="form-control tdrag" [(ngModel)]="markerDraggable" name="markerDraggable">
+                   <option value="yes">Yes</option>
+                   <option value="no">No</option>
+                 </select>
+                 <button type="submit" class="btn btn-primary tsub">Add Marker</button> -->
+                </form>
+              </div>
+              </div>
+            <!-- </div>
+                      </div>
+                  </div> -->
+
+
+<article>
+            <!--Page Google Map-->
+
+                <div id="map">
+                  <agm-map
+                  [latitude]="lat"
+                  [longitude]="lng"
+                  [zoom]="zoom"
+                  [disableDefaultUI]=false
+                  [zoomControl]="false"
+                  (mapClick)="mapClicked($event)">
+
+                    <agm-marker
+                    *ngFor="let m of markers; let i = index"
+                    (markerClick) = "clickedMarker(m, i)"
+                    [latitude]="m.lat"
+                    [longitude]="m.lng"
+                    [markerDraggable]="m.draggable"
+                    (dragEnd)="markerDragEnd(m, $event)"
+                    >
+                    <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+                      <ng-template>
+                        <strong>Name: </strong>{{m.name}}<br>
+                        <strong>Latitude: </strong>{{m.lat}}<br>
+                        <strong>Longitude: </strong>{{m.lng}}<br>
+                        <!-- <a class="edit btn btn-primary">Edit</a> -->
+                        <a class="delete btn btn-danger" (click)="removeMarker(m)">Delete</a>
+                      </ng-template>
+                    </agm-snazzy-info-window>
+                    </agm-marker>
+                  </agm-map>
+                </div>
+
+             <!--/#page-map-wrapper-->
+        </article>
+
+        <!-- <h3>
+          Posts
+          <ul *ngFor="let post of posts.location">
+           <li>{{post.name}}</li>
+         </ul>
+        </h3> -->
+
+
+</div>
